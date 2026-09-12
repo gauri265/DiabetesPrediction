@@ -1,4 +1,4 @@
-# DiabetesPrediction
+
 
 # Diabetes Prediction Using Gaussian Naive Bayes
 
