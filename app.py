@@ -17,7 +17,7 @@ st.write("Predict diabetes using Gaussian Naive Bayes.")
 
 # Sidebar
 with st.sidebar:
-    st.header("🩺 About the App")
+    st.header(" About the App")
 
     st.write(
         "This application uses Gaussian Naive Bayes "
@@ -26,14 +26,14 @@ with st.sidebar:
 
     st.divider()
 
-    st.subheader("📊 Model Information")
+    st.subheader(" Model Information")
     st.write("**Algorithm:** Gaussian Naive Bayes")
     st.write("**Threshold:** 0.10")
     st.write("**Features:** 8")
 
     st.divider()
 
-    st.subheader("⚕️ Disclaimer")
+    st.subheader(" Disclaimer")
     st.caption(
         "This application is for educational purposes only "
         "and is not a medical diagnosis."
@@ -77,7 +77,7 @@ model.fit(X_scaled, y)
 
 
 # Patient details
-st.subheader("👤 Enter Patient Details")
+st.subheader(" Enter Patient Details")
 
 gender = st.selectbox(" Gender", ["Female", "Male", "Other"])
 
