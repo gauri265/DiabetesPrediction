@@ -79,10 +79,10 @@ model.fit(X_scaled, y)
 # Patient details
 st.subheader("👤 Enter Patient Details")
 
-gender = st.selectbox("🧑 Gender", ["Female", "Male", "Other"])
+gender = st.selectbox(" Gender", ["Female", "Male", "Other"])
 
 age = st.number_input(
-    "🎂 Age",
+    " Age",
     min_value=0,
     max_value=120,
     value=30,
@@ -90,38 +90,38 @@ age = st.number_input(
 )
 
 hypertension = st.selectbox(
-    "🩸 Hypertension",
+    " Hypertension",
     [0, 1],
     format_func=lambda x: "Yes" if x == 1 else "No"
 )
 
 heart_disease = st.selectbox(
-    "❤️ Heart Disease",
+    " Heart Disease",
     [0, 1],
     format_func=lambda x: "Yes" if x == 1 else "No"
 )
 
 smoking_history = st.selectbox(
-    "🚬 Smoking History",
+    " Smoking History",
     ["No Info", "never", "former", "current", "not current", "ever"]
 )
 
 bmi = st.number_input(
-    "⚖️ BMI",
+    " BMI",
     min_value=0.0,
     max_value=100.0,
     value=25.0
 )
 
 hba1c = st.number_input(
-    "🧪 HbA1c Level",
+    " HbA1c Level",
     min_value=0.0,
     max_value=20.0,
     value=5.5
 )
 
 glucose = st.number_input(
-    "🩸 Blood Glucose Level",
+    " Blood Glucose Level",
     min_value=0.0,
     max_value=500.0,
     value=100.0
@@ -172,7 +172,3 @@ if st.button("🔍 Predict Diabetes"):
     else:
         st.success("🟢 Prediction: Non-Diabetic")
 
-    st.warning(
-        "This application is for educational purposes only "
-        "and is not a medical diagnosis."
-    )
