@@ -161,7 +161,7 @@ if st.button("🔍 Predict Diabetes"):
     threshold = 0.10
     prediction = int(probability >= threshold)
 
-    st.subheader("📊 Prediction Result")
+    st.subheader(" Prediction Result")
 
     st.write(
         f"Predicted diabetes probability: **{probability:.2%}**"
