@@ -11,7 +11,7 @@ st.set_page_config(
     page_icon="🩺"
 )
 
-st.title("🩺 Diabetes Prediction")
+st.title(" Diabetes Prediction")
 st.write("Predict diabetes using Gaussian Naive Bayes.")
 
 
