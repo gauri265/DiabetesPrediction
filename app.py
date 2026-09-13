@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 
@@ -13,6 +14,32 @@ st.set_page_config(
 st.title("🩺 Diabetes Prediction")
 st.write("Predict diabetes using Gaussian Naive Bayes.")
 
+
+# Sidebar
+with st.sidebar:
+    st.header("🩺 About the App")
+
+    st.write(
+        "This application uses Gaussian Naive Bayes "
+        "to predict diabetes based on patient details."
+    )
+
+    st.divider()
+
+    st.subheader("📊 Model Information")
+    st.write("**Algorithm:** Gaussian Naive Bayes")
+    st.write("**Threshold:** 0.10")
+    st.write("**Features:** 8")
+
+    st.divider()
+
+    st.subheader("⚕️ Disclaimer")
+    st.caption(
+        "This application is for educational purposes only "
+        "and is not a medical diagnosis."
+    )
+
+
 # Load dataset
 @st.cache_data
 def load_data():
@@ -23,58 +50,87 @@ def load_data():
 
 data = load_data()
 
+
 # Prepare encoders
 gender_encoder = LabelEncoder()
 smoking_encoder = LabelEncoder()
 
 data["gender"] = gender_encoder.fit_transform(data["gender"])
+
 data["smoking_history"] = smoking_encoder.fit_transform(
     data["smoking_history"]
 )
 
+
 X = data.drop("diabetes", axis=1)
 y = data["diabetes"]
+
 
 # Scale features
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
+
 
 # Train model
 model = GaussianNB(var_smoothing=1.0)
 model.fit(X_scaled, y)
 
 
-st.subheader("Enter Patient Details")
+# Patient details
+st.subheader("👤 Enter Patient Details")
 
-gender = st.selectbox("Gender", ["Female", "Male", "Other"])
+gender = st.selectbox("🧑 Gender", ["Female", "Male", "Other"])
+
 age = st.number_input(
-    "Age",
+    "🎂 Age",
     min_value=0,
     max_value=120,
     value=30,
     step=1
 )
-hypertension = st.selectbox("Hypertension", [0, 1])
-heart_disease = st.selectbox("Heart Disease", [0, 1])
+
+hypertension = st.selectbox(
+    "🩸 Hypertension",
+    [0, 1],
+    format_func=lambda x: "Yes" if x == 1 else "No"
+)
+
+heart_disease = st.selectbox(
+    "❤️ Heart Disease",
+    [0, 1],
+    format_func=lambda x: "Yes" if x == 1 else "No"
+)
+
 smoking_history = st.selectbox(
-    "Smoking History",
+    "🚬 Smoking History",
     ["No Info", "never", "former", "current", "not current", "ever"]
 )
-bmi = st.number_input("BMI", min_value=0.0, max_value=100.0, value=25.0)
+
+bmi = st.number_input(
+    "⚖️ BMI",
+    min_value=0.0,
+    max_value=100.0,
+    value=25.0
+)
+
 hba1c = st.number_input(
-    "HbA1c Level",
+    "🧪 HbA1c Level",
     min_value=0.0,
     max_value=20.0,
     value=5.5
 )
+
 glucose = st.number_input(
-    "Blood Glucose Level",
+    "🩸 Blood Glucose Level",
     min_value=0.0,
     max_value=500.0,
     value=100.0
 )
 
-if st.button("Predict Diabetes"):
+
+# Prediction
+if st.button("🔍 Predict Diabetes"):
+
     input_data = pd.DataFrame([{
         "gender": gender,
         "age": age,
@@ -87,7 +143,10 @@ if st.button("Predict Diabetes"):
     }])
 
     # Encode input using the same encoders
-    input_data["gender"] = gender_encoder.transform(input_data["gender"])
+    input_data["gender"] = gender_encoder.transform(
+        input_data["gender"]
+    )
+
     input_data["smoking_history"] = smoking_encoder.transform(
         input_data["smoking_history"]
     )
@@ -99,12 +158,14 @@ if st.button("Predict Diabetes"):
     probability = model.predict_proba(input_scaled)[0][1]
 
     # Use selected threshold
-        # Use selected threshold
     threshold = 0.10
     prediction = int(probability >= threshold)
 
-    st.subheader("Prediction Result")
-    st.write(f"Predicted diabetes probability: **{probability:.2%}**")
+    st.subheader("📊 Prediction Result")
+
+    st.write(
+        f"Predicted diabetes probability: **{probability:.2%}**"
+    )
 
     if prediction == 1:
         st.error("🔴 Prediction: Diabetic")
@@ -112,5 +173,6 @@ if st.button("Predict Diabetes"):
         st.success("🟢 Prediction: Non-Diabetic")
 
     st.warning(
-        "This application is for educational purposes only and is not a medical diagnosis."
+        "This application is for educational purposes only "
+        "and is not a medical diagnosis."
     )
